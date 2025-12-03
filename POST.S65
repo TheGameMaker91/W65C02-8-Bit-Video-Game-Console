@@ -103,3 +103,9 @@ VIC_FAIL:
 
 VIC_OK:
     RTS
+
+;=================================
+; Loop infinitely at this pont (just to test)
+;=================================
+HLT_Loop:
+    JMP HLT_Loop
