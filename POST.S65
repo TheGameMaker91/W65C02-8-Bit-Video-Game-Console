@@ -1,17 +1,112 @@
-    .org $8000
-    .segment "CODE"
+;==============================
+; Zero Page
+;==============================
+.segment "ZP": zeropage
+VIDEO_CHIP: .res 1      ; Store detected video chip ID
 
-    .global loop
-loop:
-    LDA #$01
+;==============================
+; Code Segment
+;==============================
+.segment "CODE"
+
+;==============================
+; POST Routine: RAM Detection
+;==============================
+.global POST_Init
+POST_Init:
+POST_RAM:
+    ; Test $0200
+    LDA #$AA
+    STA $0200
+    LDA $0200
+    CMP #$AA
+    BNE ram_post_fail
+
+    LDA #$55
+    STA $0200
+    LDA $0200
+    CMP #$55
+    BNE ram_post_fail
+
+    ; Test $0201
+    LDA #$AA
+    STA $0201
+    LDA $0201
+    CMP #$AA
+    BNE ram_post_fail
+
+    LDA #$55
+    STA $0201
+    LDA $0201
+    CMP #$55
+    BNE ram_post_fail
+
+    ; Success: infinite loop
+ram_post_done:
+    JMP ram_post_done
+
+ram_post_fail:
+    JMP ram_post_fail
+
+;====================================
+; POST Routine: Video Card Detection
+;====================================
+POST_VIDEO:
+        LDA $6000               ; Read from video card I/O port
+        AND #$07                ; Mask out all but lower 3 bits (the selector)
+        STA VIDEO_CHIP          ; Store result in zero page
+        RTS                     ; Return to BIOS/next POST
+
+;==============================
+; Driver Selection
+;==============================
+SELECT_DRIVER:
+    LDA VIDEO_CHIP
+    CMP #$05
+    BEQ USE_MC6847
+    CMP #$06
+    BEQ USE_TMS9918
+    JMP VIDEO_FAIL              ; Unknown card
+
+USE_MC6847:
+    JSR MC6847_DRIVER
+    RTS
+
+USE_TMS9918:
+    JSR TMS9918_DRIVER
+    RTS
+
+VIDEO_FAIL:
+    JMP VIDEO_FAIL
+
+MC6847_DRIVER:
+    JMP MC6847_DRIVER
+TMS9918_DRIVER:
+    JMP TMS9918_DRIVER
+
+;=================================
+; POST Routine: VIC Chip (W65C22)
+;=================================
+POST_VIC:
+    LDA #$FF
     STA $6000
-    JSR delay
+    LDA $6000
+    CMP #$FF
+    BNE VIC_FAIL
+
     LDA #$00
     STA $6000
-    JSR delay
-    JMP loop
-delay:
-    LDY #$FF
-d1: DEY
-    BNE d1
+    JMP VIC_OK
+
+VIC_FAIL:
+    JMP VIC_FAIL
+
+VIC_OK:
     RTS
+
+;=================================
+; Loop infinitely at this pont (just to test)
+;=================================
+HLT_Loop:
+    JMP HLT_Loop
+    

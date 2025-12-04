@@ -16,7 +16,7 @@
 .org $8000
 
 ; Import the global symbol "POST_Init":
-.import loop
+.import POST_Init
 
 ;==============================
 ; Reset Routine
@@ -27,4 +27,4 @@ ResetRoutine:
     LDX #$FF
     TXS                 ; Initialize stack
 
-    JSR loop
+    JSR POST_Init
