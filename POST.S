@@ -80,9 +80,9 @@ VIDEO_FAIL:
     JMP VIDEO_FAIL
 
 MC6847_DRIVER:
-    JMP MC6847_DRIVER
+    JMP MC6847_DRIVER           ; This is temporary! We will write a fully functioning driver soon.
 TMS9918_DRIVER:
-    JMP TMS9918_DRIVER
+    JMP TMS9918_DRIVER          ; This is temporary! We will write a fully functioning driver soon.
 
 ;=================================
 ; POST Routine: VIC Chip (W65C22)
@@ -109,4 +109,3 @@ VIC_OK:
 ;=================================
 HLT_Loop:
     JMP HLT_Loop
-    

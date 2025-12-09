@@ -10,9 +10,9 @@ BIN		= SYSTEM.BIN
 all: POST bin
 	@echo Make has built the 6502 binary.
 
-POST: RESET.S65 POST.S65
-	$(AS) RESET.S65 -o reset.o
-	$(AS) POST.S65 -o post.o
+POST: RESET.S POST.S
+	$(AS) RESET.S -o reset.o
+	$(AS) POST.S -o post.o
 
 bin: $(SYSTEM.CFG) reset.o post.o
 	$(LD) $(LDFLAGS) reset.o post.o -o $(BIN)
