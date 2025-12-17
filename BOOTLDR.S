@@ -1,4 +1,4 @@
-.org $6000
+.org $4000
 .segment "BIOS_CODE"
 .include "HAL.INC"
 
@@ -6,7 +6,7 @@
 Boot:
     LDX #$02
 Start:
-    LDA $6500, X
+    LDA $4500, X
     CMP #$0B
     BEQ Halt
     INX
