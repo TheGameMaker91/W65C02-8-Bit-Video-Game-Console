@@ -1,30 +1,29 @@
 ; RESET.S65: Contains pre-POST reset vector.
-
-;==============================
-; Vectors
-;==============================
-.segment "VECTORS"
-.org $FFFA              ; Reset vector location
-.word ResetRoutine      ; Address of the reset vector (where execution begins)
-.word 0                 ; NMI
-.word 0                 ; IRQ/BRK
-
 ;==============================
 ; Code Segment
 ;==============================
-.segment "CODE"
-.org $8000
+.segment "BIOS_CODE"
+.org $4000
 
 ; Import the global symbol "POST_Init":
-.import POST_Init
+.import Boot
 
 ;==============================
 ; Reset Routine
 ;==============================
-ResetRoutine:
+Reset:
     SEI                 ; Disable interrupts
     CLD                 ; Clear decimal mode
     LDX #$FF
     TXS                 ; Initialize stack
 
-    JSR POST_Init
+    JSR Boot
+
+;==============================
+; Vectors
+;==============================
+.segment "VECTORS"
+.org $FFFC              ; Reset vector location
+.word Reset             ; Address of the reset vector (where execution begins)
+.word 0                 ; NMI
+.word 0                 ; IRQ/BRK
