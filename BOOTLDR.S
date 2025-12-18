@@ -4,12 +4,5 @@
 
 .global Boot
 Boot:
-    LDX #$02
-Start:
-    LDA $4500, X
-    CMP #$0B
-    BEQ Halt
-    INX
-    JMP Start
-Halt:
-    JMP Halt
+Hlt:
+    JMP Hlt

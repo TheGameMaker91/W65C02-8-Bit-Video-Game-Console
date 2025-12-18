@@ -2,6 +2,8 @@
 ;==============================
 ; Code Segment
 ;==============================
+.setcpu "65C02"
+
 .segment "BIOS_CODE"
 .org $4000
 
@@ -17,13 +19,22 @@ Reset:
     LDX #$FF
     TXS                 ; Initialize stack
 
-    JSR Boot
+    LDA #$00
+    LDX #$00
+ClearZeroPage:
+    STZ $00, X
+    INX
+    BNE ClearZeroPage
+
+    CLC
+    CLI
+    JMP Boot
 
 ;==============================
 ; Vectors
 ;==============================
 .segment "VECTORS"
-.org $FFFC              ; Reset vector location
-.word Reset             ; Address of the reset vector (where execution begins)
+.org $5FFC              ; Reset vector location
 .word 0                 ; NMI
+.word Reset             ; Address of the reset vector (where execution begins)
 .word 0                 ; IRQ/BRK
