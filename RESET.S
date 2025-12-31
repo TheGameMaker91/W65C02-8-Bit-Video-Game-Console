@@ -4,9 +4,6 @@
 ;==============================
 .setcpu "65C02"
 
-.segment "BIOS_CODE"
-.org $E000
-
 ; Import the global symbol "POST_Init":
 ;.import Boot
 
@@ -22,12 +19,17 @@ VIA_PCR     = VIA_BASE + $C
 ;==============================
 ; Reset Routine
 ;==============================
+.segment "BIOS_CODE"
+.org $E000
+
 Reset:
     SEI                 ; Disable interrupts
     CLD                 ; Clear decimal mode
     LDX #$FF
     TXS                 ; Initialize stack
 
+    LDA #%11111111
+    STA VIA_DDRA
 Loop:
     ; Turn LED on
     LDA #%00000001
@@ -58,5 +60,4 @@ InnerLoop:
 ; Vectors
 ;==============================
 .segment "VECTORS"
-.org $FFFC              ; Reset vector location
 .word Reset             ; Address of the reset vector (where execution begins)
