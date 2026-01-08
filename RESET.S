@@ -4,23 +4,19 @@
 ;==============================
 .setcpu "65C02"
 
-; Import the global symbol "POST_Init":
-;.import Boot
+.segment "ZP"
+StackL:         .res 1
+StackH:         .res 1
 
-; VIA Registers
-VIA_BASE    = $C000
-VIA_ORA     = VIA_BASE
-VIA_DDRA    = VIA_BASE + $0
-VIA_T1C_L   = VIA_BASE + $4
-VIA_T1C_H   = VIA_BASE + $5
-VIA_ACR     = VIA_BASE + $B
-VIA_PCR     = VIA_BASE + $C
+ZP_START        = $00
+ZP_END          = $FF
 
 ;==============================
 ; Reset Routine
 ;==============================
 .segment "BIOS_CODE"
-.org $E000
+.import Boot
+;.org $E000
 
 Reset:
     SEI                 ; Disable interrupts
@@ -28,33 +24,20 @@ Reset:
     LDX #$FF
     TXS                 ; Initialize stack
 
-    LDA #%11111111
-    STA VIA_DDRA
-Loop:
-    ; Turn LED on
-    LDA #%00000001
-    STA VIA_ORA
+    LDX #$00
+ClearZP:
+    LDA #$00
+    STA ZP_START, X
+    INX
+    CPX ZP_END+1
+    BNE ClearZP
 
-    JSR Delay1s
+    JMP Boot
 
-    ; Turn LED off
-    LDA #%00000000
-    STA VIA_ORA
-
-    JSR Delay1s
-
-    JMP Loop
-
-Delay1s:
-    LDX #$FF
-OuterLoop:
-    LDY #$FF
-InnerLoop:
-    DEY
-    BNE InnerLoop
-    DEX
-    BNE OuterLoop
-    RTS
+.segment "BIOS_DATA"
+MemoryMapping:
+@Loop:
+    JMP @Loop
 
 ;==============================
 ; Vectors

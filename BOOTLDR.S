@@ -1,5 +1,5 @@
 .org $4000
-.segment "BIOS_CODE"
+.segment "BOOTLOADER"
 .include "HAL.INC"
 
 .global Boot
