@@ -33,7 +33,7 @@ TestVIA:
     LDA #$FF
     STA VIA_DDRB
 
-    LDA #$AA
+    LDA #$CC
     STA VIA_IORB
 Hlt:
     JMP Hlt
