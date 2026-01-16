@@ -3,7 +3,6 @@
 ; Zero Page Segment
 ;==============================
 .segment "ZP"
-zp_val:         .res 1
 ZP_START        = $00
 ZP_END          = $FF
 
@@ -31,14 +30,14 @@ ClearZP:
 
     ;JMP Boot
 TestVIA:
+    LDX #$CA
+    TXS
+
     LDA #$FF
     STA VIA_DDRB
 
-    LDA #$CC
-    STA zp_val
-
-    LDA zp_val
-    STA VIA_IORB
+    TSX
+    STX VIA_IORB
 Hlt:
     JMP Hlt
 
