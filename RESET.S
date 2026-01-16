@@ -3,6 +3,7 @@
 ; Zero Page Segment
 ;==============================
 .segment "ZP"
+zp_val:         .res 1
 ZP_START        = $00
 ZP_END          = $FF
 
@@ -34,6 +35,9 @@ TestVIA:
     STA VIA_DDRB
 
     LDA #$CC
+    STA zp_val
+
+    LDA zp_val
     STA VIA_IORB
 Hlt:
     JMP Hlt
