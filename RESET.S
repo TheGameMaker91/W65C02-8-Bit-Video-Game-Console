@@ -1,24 +1,20 @@
 ; RESET.S65: Contains pre-POST reset vector.
 ;==============================
-; Code Segment
+; Zero Page Segment
 ;==============================
-.setcpu "65C02"
-
 .segment "ZP"
-StackL:         .res 1
-StackH:         .res 1
-
 ZP_START        = $00
 ZP_END          = $FF
 
-;==============================
-; Reset Routine
-;==============================
+;==================================
+; Code Segment & Reset Vector
+;==================================
 .segment "BIOS_CODE"
 .import Boot
-;.org $E000
 
-Reset:
+.include "HAL.INC"
+
+Reset_Vector:
     SEI                 ; Disable interrupts
     CLD                 ; Clear decimal mode
     LDX #$FF
@@ -32,15 +28,33 @@ ClearZP:
     CPX ZP_END+1
     BNE ClearZP
 
-    JMP Boot
+    ;JMP Boot
+TestVIA:
+    LDA #$FF
+    STA VIA_DDRB
+
+    LDA #$AA
+    STA VIA_IORB
+Hlt:
+    JMP Hlt
+
+;==================================
+; NMI and IRQ Vector Intialization
+;==================================
+NMI_Vector:
+    RTI
+IRQ_Vector:
+    RTI
 
 .segment "BIOS_DATA"
 MemoryMapping:
 @Loop:
     JMP @Loop
 
-;==============================
+;==================================
 ; Vectors
-;==============================
+;==================================
 .segment "VECTORS"
-.word Reset             ; Address of the reset vector (where execution begins)
+.word NMI_Vector        ; Address of the NMI Vector (where non masking interrupts happen;   $FFFA-$FFFB)
+.word Reset_Vector      ; Address of the reset vector (where execution begins;              $FFFC-$FFFD)
+.word IRQ_Vector        ; Address of the IRQ Vector (where interrupt request begins;        $FFFE-$FFFF)
