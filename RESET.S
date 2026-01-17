@@ -25,6 +25,10 @@ Reset_Vector:
 
 Loop:
     LDA VIA_IORB
+    EOR #%01010101
+    STA VIA_IORB
+
+    LDA VIA_IORB
     EOR #%10101010
     STA VIA_IORB
 
