@@ -21,22 +21,11 @@ Reset_Vector:
     TXS                 ; Initialize stack
 
 Start:
-    LDA #$01
-    STA VIA_DDRB
+    LDA #$FF
+    STA VIA_DDRA
 
-    LDA #$20
-    STA VIA_T1LL
-    LDA #$0F
-    STA VIA_T1CH
-
-    LDA #$21
-    STA VIA_ACR
-BlinkLoop:
-    BIT VIA_IFR
-    BPL BlinkLoop
-
-    LDA #$40
-    STA VIA_IFR
+    LDA $AA
+    STA VIA_IORA
 
     JMP Start
 
