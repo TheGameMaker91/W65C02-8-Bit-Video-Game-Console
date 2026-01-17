@@ -34,9 +34,9 @@ TestVIA:
     STA VIA_DDRB
 
     LDA #$55
-    STA $0100
+    STA $0500
 
-    LDA $0100
+    LDA $0500
     STA VIA_IORB
 Hlt:
     JMP Hlt
