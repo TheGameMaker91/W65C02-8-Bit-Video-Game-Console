@@ -20,39 +20,24 @@ Reset_Vector:
     LDX #$FF
     TXS                 ; Initialize stack
 
-    LDX #$00
-ClearZP:
-    LDA #$00
-    STA ZP_START, X
-    INX
-    CPX ZP_END+1
-    BNE ClearZP
+    LDA #%00000001
+    STA VIA_DDRB
 
-    ;JMP Boot
-
-LDA #$FF
-STA VIA_DDRB
-
-LDX #$00
-ClearPage:
-    LDA #$AA
-    STA $0100, X
-    LDA $0100, X
-    CMP #$AA
-    BNE RamFail
-
-    INX
-    BNE ClearPage
-RamPass:
-    LDA #$FF
+Loop:
+    LDA VIA_IORB
+    EOR #%00000001
     STA VIA_IORB
-    JMP RamPass
-RamFail:
-    LDA #$F0
-    STA VIA_IORB
-    JMP RamFail
-Hlt:
-    JMP Hlt
+
+    LDX #$FF
+OuterDelay:
+    LDY #$FF
+InnerDelay:
+    DEY
+    BNE InnerDelay
+    DEX
+    BNE OuterDelay
+
+    JMP Loop
 
 ;==================================
 ; NMI and IRQ Vector Intialization
@@ -61,11 +46,6 @@ NMI_Vector:
     RTI
 IRQ_Vector:
     RTI
-
-.segment "BIOS_DATA"
-MemoryMapping:
-@Loop:
-    JMP @Loop
 
 ;==================================
 ; Vectors
