@@ -20,7 +20,7 @@ Reset_Vector:
     LDX #$FF
     TXS                 ; Initialize stack
 
-    LDA #%10101010
+    LDA #$FF
     STA VIA_DDRB
 Loop:
     LDA #%10101010
