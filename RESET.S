@@ -19,6 +19,7 @@ Reset_Vector:
     CLD                 ; Clear decimal mode
     LDX #$FF
     TXS                 ; Initialize stack
+<<<<<<< HEAD
 ClearZP:
     LDA #$00
     STA ZP_START, X
@@ -45,6 +46,17 @@ InnerDelay:
     BNE OuterDelay
 
     JMP Loop
+=======
+
+    LDA #$FF
+    STA VIA_DDRA
+
+    LDA $AA
+    STA VIA_IORA
+
+Hlt:
+    JMP Hlt
+>>>>>>> c8244c59015bf00dbb80b5858dfaa7d390f60b2e
 
 ;==================================
 ; NMI and IRQ Vector Intialization
@@ -53,11 +65,6 @@ NMI_Vector:
     RTI
 IRQ_Vector:
     RTI
-
-.segment "BIOS_DATA"
-MemoryMapping:
-@Loop:
-    JMP @Loop
 
 ;==================================
 ; Vectors
