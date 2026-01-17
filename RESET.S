@@ -29,15 +29,28 @@ ClearZP:
     BNE ClearZP
 
     ;JMP Boot
-TestVIA:
+
+LDA #$FF
+STA VIA_DDRB
+
+LDX #$00
+ClearPage:
+    LDA #$AA
+    STA $0100, X
+    LDA $0100, X
+    CMP #$AA
+    BNE RamFail
+
+    INX
+    BNE ClearPage
+RamPass:
     LDA #$FF
-    STA VIA_DDRB
-
-    LDA #$55
-    STA $0500
-
-    LDA $0500
     STA VIA_IORB
+    JMP RamPass
+RamFail:
+    LDA #$F0
+    STA VIA_IORB
+    JMP RamFail
 Hlt:
     JMP Hlt
 
