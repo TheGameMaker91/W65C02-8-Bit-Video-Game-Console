@@ -30,13 +30,16 @@ ClearZP:
 
     ;JMP Boot
 TestVIA:
-    LDX #$CA
-    TXS
-
     LDA #$FF
     STA VIA_DDRB
 
-    TSX
+    LDX #$CA
+    TXS
+
+    LDA #$55
+    PHA
+
+    PLA
     STX VIA_IORB
 Hlt:
     JMP Hlt
