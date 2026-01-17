@@ -22,27 +22,27 @@ Reset_Vector:
 
     LDA #%10101010
     STA VIA_DDRB
-
 Loop:
-    LDA VIA_IORB
-    EOR #%01010101
+    LDA #%10101010
     STA VIA_IORB
+    JSR Delay
 
-    LDA VIA_IORB
-    EOR #%10101010
+    LDA #%01010101
     STA VIA_IORB
-
-    LDX #$FF
-OuterDelay:
-    LDY #$FF
-InnerDelay:
-    DEY
-    BNE InnerDelay
-    DEX
-    BNE OuterDelay
+    JSR Delay
 
     JMP Loop
-
+Delay:
+    LDX #$FF
+D1:
+    LDY #$FF
+D2:
+    DEY
+    BNE D2
+    DEX
+    BNE D1
+    RTS
+    
 ;==================================
 ; NMI and IRQ Vector Intialization
 ;==================================
