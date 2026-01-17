@@ -20,24 +20,30 @@ Reset_Vector:
     LDX #$FF
     TXS                 ; Initialize stack
 
-    LDA #%00000001
+Start:
+    LDA #$FF
     STA VIA_DDRB
 
-Loop:
+    LDA #$00
+    STA VIA_IORB
+BlinkLoop:
+    LDA #<COUNT
+    STA VIA_T1CL
+    LDA #>COUNT
+    STA VIA_T1CH
+WaitT1:
+    LDA VIA_IFR
+    AND #%00000001
+    BEQ WaitT1
+
+    LDA #%00000001
+    STA VIA_IFR
+
     LDA VIA_IORB
-    EOR #%00000001
+    EOR #$01
     STA VIA_IORB
 
-    LDX #$FF
-OuterDelay:
-    LDY #$FF
-InnerDelay:
-    DEY
-    BNE InnerDelay
-    DEX
-    BNE OuterDelay
-
-    JMP Loop
+    JMP BlinkLoop
 
 ;==================================
 ; NMI and IRQ Vector Intialization
@@ -46,6 +52,9 @@ NMI_Vector:
     RTI
 IRQ_Vector:
     RTI
+
+.segment "BIOS_DATA"
+COUNT = $FFFF
 
 ;==================================
 ; Vectors
