@@ -20,14 +20,14 @@ Reset_Vector:
     LDX #$FF
     TXS                 ; Initialize stack
 
-Start:
     LDA #$FF
     STA VIA_DDRA
 
     LDA $AA
     STA VIA_IORA
 
-    JMP Start
+Hlt:
+    JMP Hlt
 
 ;==================================
 ; NMI and IRQ Vector Intialization
