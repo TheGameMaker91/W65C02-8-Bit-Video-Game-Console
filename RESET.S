@@ -20,24 +20,15 @@ Reset_Vector:
     LDX #$FF
     TXS                 ; Initialize stack
 
-ClearZP:
-    LDA #$00
-    STA ZP_START, X
-    INX
-    CPX ZP_END+1
-
-    BNE ClearZP
-
-Start:
-    LDA #%00000001
+    LDA #%10101010
     STA VIA_DDRB
+
 Loop:
     LDA VIA_IORB
-    EOR #%00000001
+    EOR #%10101010
     STA VIA_IORB
 
     LDX #$FF
-
 OuterDelay:
     LDY #$FF
 InnerDelay:
