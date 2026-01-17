@@ -19,8 +19,6 @@ Reset_Vector:
     CLD                 ; Clear decimal mode
     LDX #$FF
     TXS                 ; Initialize stack
-
-    LDX #$00
 ClearZP:
     LDA #$00
     STA ZP_START, X
@@ -29,17 +27,24 @@ ClearZP:
     BNE ClearZP
 
     ;JMP Boot
-TestVIA:
-    LDX #$CA
-    TXS
+Start:
+    LDA #%00000001
+    STA VIA_DDRB
+Loop:
+    LDA VIA_IORB
+    EOR #%00000001
+    STA VIA_IORB
 
     LDA #$FF
-    STA VIA_DDRB
+OuterDelay:
+    LDY #$FF
+InnerDelay:
+    DEY
+    BNE InnerDelay
+    DEX
+    BNE OuterDelay
 
-    TSX
-    STX VIA_IORB
-Hlt:
-    JMP Hlt
+    JMP Loop
 
 ;==================================
 ; NMI and IRQ Vector Intialization
