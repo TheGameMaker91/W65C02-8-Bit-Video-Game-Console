@@ -33,14 +33,11 @@ TestVIA:
     LDA #$FF
     STA VIA_DDRB
 
-    LDX #$CA
-    TXS
-
     LDA #$55
-    PHA
+    STA $0100
 
-    PLA
-    STX VIA_IORB
+    LDA $0100
+    STA VIA_IORB
 Hlt:
     JMP Hlt
 
