@@ -3,6 +3,7 @@
 ; Zero Page Segment
 ;==============================
 .segment "ZP"
+BootLdr:        .res 2
 ZP_START        = $00
 ZP_END          = $FF
 
@@ -26,7 +27,12 @@ ClearZP:
     CPX ZP_END
     BNE ClearZP
 
-    JMP Boot
+    LDA #$00
+    STA BootLdr
+    LDA #$F0
+    STA BootLdr+1
+
+    JMP (BootLdr)
     
 ;==================================
 ; NMI and IRQ Vector Intialization

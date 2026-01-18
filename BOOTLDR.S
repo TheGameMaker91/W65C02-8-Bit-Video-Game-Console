@@ -3,23 +3,31 @@
 .include "HAL.INC"
 
 .segment "ZP"
+TestWord:   .res 2
 
 .segment "BOOTLDR"
-TEST_PATTERN    = $AA
 
 .global Boot
 Boot:
-    LDA #%10000000
+    LDA #$FF
     STA VIA_DDRB
 @Loop:
-    LDA VIA_IORB
-    AND #%00000001
-    ASL
-    ASL
-    ASL
-    ASL
-    ASL
-    ASL
-    ASL
+    LDA #%10101010
     STA VIA_IORB
+    JSR @Delay
+
+    LDA #%01010101
+    STA VIA_IORB
+    JSR @Delay
+
     JMP @Loop
+@Delay:
+    LDX #$FF
+@D1:
+    LDY #$FF
+@D2:
+    DEY
+    BNE @D2
+    DEX
+    BNE @D1
+    RTS
