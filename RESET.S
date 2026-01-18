@@ -27,7 +27,7 @@ ClearZP:
     INX
     BNE ClearZP
 
-    JMP BootLdr
+    JMP $F000
     
 ;==================================
 ; NMI and IRQ Vector Intialization
