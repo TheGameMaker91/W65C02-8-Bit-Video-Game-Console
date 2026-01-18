@@ -3,7 +3,6 @@
 ; Zero Page Segment
 ;==============================
 .segment "ZP"
-BootLdr:        .res 2
 ZP_START        = $00
 ZP_END          = $FF
 
@@ -11,7 +10,9 @@ ZP_END          = $FF
 ; Code Segment & Reset Vector
 ;==================================
 .segment "BIOS_CODE"
-.import Boot
+
+BootLdr:
+    .word $F000
 
 Reset_Vector:
     SEI                 ; Disable interrupts
@@ -26,12 +27,7 @@ ClearZP:
     INX
     BNE ClearZP
 
-    LDA #$00
-    STA BootLdr
-    LDA #$F0
-    STA BootLdr+1
-
-    JMP (BootLdr)
+    JMP BootLdr
     
 ;==================================
 ; NMI and IRQ Vector Intialization

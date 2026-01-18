@@ -1,6 +1,5 @@
 .segment "BOOTLDR"
 .include "HAL.INC"
-.global Boot
 
 Boot:
     LDA #$FF
