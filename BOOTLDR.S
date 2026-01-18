@@ -11,23 +11,23 @@ TestWord:   .res 2
 Boot:
     LDA #$FF
     STA VIA_DDRB
-@Loop:
+Loop:
     LDA #%10101010
     STA VIA_IORB
-    JSR @Delay
+    JSR Delay
 
     LDA #%01010101
     STA VIA_IORB
-    JSR @Delay
+    JSR Delay
 
-    JMP @Loop
-@Delay:
+    JMP Loop
+Delay:
     LDX #$FF
-@D1:
+D1:
     LDY #$FF
-@D2:
+D2:
     DEY
-    BNE @D2
+    BNE D2
     DEX
-    BNE @D1
+    BNE D1
     RTS
