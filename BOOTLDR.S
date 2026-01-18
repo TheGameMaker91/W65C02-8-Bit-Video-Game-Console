@@ -5,7 +5,7 @@ Boot:
     LDA #%10000000
     STA VIA_DDRB
 
-    LDA #%10000000
+    LDA #%00000000
     STA VIA_IORB
 Loop:
     LDA VIA_IORB
