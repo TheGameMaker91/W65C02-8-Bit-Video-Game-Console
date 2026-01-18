@@ -15,5 +15,6 @@ Boot:
     LDA VIA_IORB
     AND #%00000001
     ASL A
+    ORA VIA_IORB
     STA VIA_IORB
     JMP @Loop
