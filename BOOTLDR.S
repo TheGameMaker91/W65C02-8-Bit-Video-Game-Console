@@ -9,9 +9,9 @@ Boot:
     STA VIA_IORB
 Loop:
     LDA VIA_IORB
-    AND #%00000001
+    AND #%00000000
     BEQ KeepOn
-    LDA #%00000000
+    LDA #%00000001
     STA VIA_IORB
 KeepOn:
     JMP Loop
