@@ -1,33 +1,33 @@
-.org $F000
-
-.include "HAL.INC"
-
-.segment "ZP"
-TestWord:   .res 2
-
 .segment "BOOTLDR"
-
+.include "HAL.INC"
 .global Boot
+
 Boot:
     LDA #$FF
     STA VIA_DDRB
 Loop:
     LDA #%10101010
     STA VIA_IORB
-    JSR Delay
+    JSR LongDelay
 
     LDA #%01010101
     STA VIA_IORB
-    JSR Delay
+    JSR LongDelay
 
     JMP Loop
-Delay:
-    LDX #$FF
-D1:
-    LDY #$FF
-D2:
-    DEY
-    BNE D2
+LongDelay:
+    LDX #$08
+@Outer:
+    JSR Delay
     DEX
+    BNE @Outer
+    RTS
+
+Delay:
+    LDY #$FF
+D1: LDX #$FF
+D2: DEX
+    BNE D2
+    DEY
     BNE D1
     RTS

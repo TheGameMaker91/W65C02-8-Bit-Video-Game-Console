@@ -20,11 +20,10 @@ Reset_Vector:
     TXS                 ; Initialize stack
 
     LDX #$00
-ClearZP:
     LDA #$00
-    STA ZP_START, X
+ClearZP:
+    STA $00, X
     INX
-    CPX ZP_END
     BNE ClearZP
 
     LDA #$00
