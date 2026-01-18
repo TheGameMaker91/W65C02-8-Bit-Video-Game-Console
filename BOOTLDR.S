@@ -9,7 +9,7 @@ TEST_PATTERN    = $AA
 
 .global Boot
 Boot:
-    LDA #%00000001
+    LDA #%10000000
     STA VIA_DDRB
 @Loop:
     LDA VIA_IORB
