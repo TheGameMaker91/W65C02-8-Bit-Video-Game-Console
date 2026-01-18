@@ -4,14 +4,9 @@
 Boot:
     LDA #%10000000
     STA VIA_DDRB
-
-    LDA #%00000000
-    STA VIA_IORB
-Loop:
+MirrorLoop:
     LDA VIA_IORB
-    AND #%00000000
-    BEQ KeepOn
-    LDA #%00000001
+    AND #%00000001
+    ORA #%10000000
     STA VIA_IORB
-KeepOn:
-    JMP Loop
+    JMP MirrorLoop
