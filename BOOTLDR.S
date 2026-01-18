@@ -5,11 +5,11 @@ Boot:
     LDA #$FF
     STA VIA_DDRB
 Loop:
-    LDA #%10101010
+    LDA #%11001100
     STA VIA_IORB
     JSR Delay
 
-    LDA #%01010101
+    LDA #%00110011
     STA VIA_IORB
     JSR Delay
 
