@@ -7,26 +7,20 @@ Boot:
 Loop:
     LDA #%10101010
     STA VIA_IORB
-    JSR LongDelay
+    JSR Delay
 
     LDA #%01010101
     STA VIA_IORB
-    JSR LongDelay
+    JSR Delay
 
     JMP Loop
-LongDelay:
-    LDX #$08
-@Outer:
-    JSR Delay
-    DEX
-    BNE @Outer
-    RTS
-
 Delay:
+    LDX #$FF
+D1:
     LDY #$FF
-D1: LDX #$FF
-D2: DEX
-    BNE D2
+D2:
     DEY
+    BNE D2
+    DEX
     BNE D1
     RTS
