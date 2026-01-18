@@ -7,6 +7,6 @@ Boot:
 MirrorLoop:
     LDA VIA_IORB
     AND #%00000001
-    ORA #%10000000
+    ASL A
     STA VIA_IORB
     JMP MirrorLoop
