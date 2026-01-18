@@ -12,36 +12,21 @@ ZP_END          = $FF
 .segment "BIOS_CODE"
 .import Boot
 
-.include "HAL.INC"
-
 Reset_Vector:
     SEI                 ; Disable interrupts
     CLD                 ; Clear decimal mode
     LDX #$FF
     TXS                 ; Initialize stack
 
-    LDA #$FF
-    STA VIA_DDRB
-Loop:
-    LDA #%10101010
-    STA VIA_IORB
-    JSR Delay
+    LDX #$00
+ClearZP:
+    LDA #$00
+    STA ZP_START, X
+    INX
+    CPX ZP_END
+    BNE ClearZP
 
-    LDA #%01010101
-    STA VIA_IORB
-    JSR Delay
-
-    JMP Loop
-Delay:
-    LDX #$FF
-D1:
-    LDY #$FF
-D2:
-    DEY
-    BNE D2
-    DEX
-    BNE D1
-    RTS
+    JMP Boot
     
 ;==================================
 ; NMI and IRQ Vector Intialization
