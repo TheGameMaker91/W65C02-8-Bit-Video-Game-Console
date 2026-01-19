@@ -8,7 +8,7 @@ Boot:
     STA SN76489_DATA
     LDA #$20
     STA SN76489_DATA
-    LDA #$03
+    LDA #$00
     STA SN76489_DATA
     LDA #$9F
     STA SN76489_DATA
@@ -16,7 +16,7 @@ Boot:
     LDA #$FF
     STA VIA_DDRB
 
-    LDA #%10000000
+    LDA #$FF
     STA VIA_IORB
 Loop:
     JMP Loop
