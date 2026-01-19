@@ -1,19 +1,17 @@
 .segment "BOOTLDR"
 .include "HAL.INC"
 
+SN76489_DATA    = $A000
+
 Boot:
-    LDA #%10000000
-    STA VIA_DDRB
-MirrorLoop:
-    LDA VIA_IORB
-    AND #%00000001
-    CMP #$01
-    BEQ SetPB7
-    LDA #%00000000
-    STA VIA_IORB
-    JMP MirrorLoop
-SetPB7:
-    LDA #%10000000
-    STA VIA_IORB
-    JMP MirrorLoop
+    LDA #$90
+    STA SN76489_DATA
+    LDA #$20
+    STA SN76489_DATA
+    LDA #$03
+    STA SN76489_DATA
+    LDA #$9F
+    STA SN76489_DATA
+Loop:
+    JMP Loop
     
