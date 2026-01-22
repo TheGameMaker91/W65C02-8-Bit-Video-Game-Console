@@ -11,8 +11,6 @@ ZP_END          = $FF
 ; Code Segment & Reset Vector
 ;==================================
 .segment "BIOS_CODE"
-.import Boot
-
 Reset_Vector:
     SEI                 ; Disable interrupts
     CLD                 ; Clear decimal mode
@@ -31,7 +29,7 @@ LoadBootloader:
     STA BootLdr
     LDA #$F0
     STA BootLdr+1
-
+    
     JMP (BootLdr)
     
 ;==================================
