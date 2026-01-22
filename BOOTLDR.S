@@ -4,9 +4,9 @@
 
 Boot:
     LDA #$FF
-    STA VIA_DDRB
+    LDA VIA_DDRA
 
     LDA #$FF
-    STA VIA_IORB
+    LDA VIA_IORA
 Hlt:
     JMP Hlt

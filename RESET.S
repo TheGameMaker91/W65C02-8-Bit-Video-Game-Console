@@ -26,6 +26,7 @@ ClearZP:
     INX
     BNE ClearZP
 
+LoadBootloader:
     LDA #$00
     STA BootLdr
     LDA #$F0
