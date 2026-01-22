@@ -1,8 +1,7 @@
 .segment "BOOTLDR"
 .include "HAL.INC"
 
-SN76489_DATA    = $A000
-
+.global Boot
 Boot:
     LDA #$FF
     LDA VIA_DDRA
@@ -11,4 +10,3 @@ Boot:
     LDA VIA_IORA
 Hlt:
     JMP Hlt
-
