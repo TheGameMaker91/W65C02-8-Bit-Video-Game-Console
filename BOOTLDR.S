@@ -4,9 +4,9 @@
 .global Boot
 Boot:
     LDA #$FF
-    LDA VIA_DDRA
+    STA VIA_DDRA
 
     LDA #$FF
-    LDA VIA_IORA
+    STA VIA_IORA
 Hlt:
     JMP Hlt
