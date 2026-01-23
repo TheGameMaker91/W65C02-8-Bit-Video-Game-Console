@@ -12,11 +12,11 @@ Start:
     STA $0201
 
     LDX #$00
-    LDA RAM_START, X
+    JSR RetrieveMemory
     STA VIA_DDRA
 
     LDX #$01
-    LDA RAM_START, X
+    JSR RetrieveMemory
     STA VIA_IORA
 
 InitMemory:
