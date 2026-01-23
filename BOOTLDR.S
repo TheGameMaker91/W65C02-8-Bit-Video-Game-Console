@@ -2,18 +2,10 @@
 .include "HAL.INC"
 
 Start:
-    LDA #$FF
-    STA $0200
-
-    LDA #$AA
-    STA $0201
-
-    LDX #$00
-    JSR RetrieveMemory
+    LDX #$FF
     STA VIA_DDRA
 
-    LDX #$01
-    JSR RetrieveMemory
+    LDX #$AA
     STA VIA_IORA
 Hlt:
     JMP Hlt
