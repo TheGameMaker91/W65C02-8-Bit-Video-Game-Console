@@ -2,10 +2,10 @@
 .include "HAL.INC"
 
 Start:
-    LDX #$FF
+    LDA #$FF
     STA VIA_DDRA
 
-    LDX #$AA
+    LDA #$AA
     STA VIA_IORA
 Hlt:
     JMP Hlt
