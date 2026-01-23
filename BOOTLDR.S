@@ -2,8 +2,6 @@
 .include "HAL.INC"
 
 Start:
-    LDX #$00
-
     LDA #$FF
     STA $0200
 
