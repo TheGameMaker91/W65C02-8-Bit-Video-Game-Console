@@ -4,13 +4,13 @@
 Pattern:    .byte $AA
 
 Bootcode:
-    LDA #$7F
+    LDA #$3F
     STA VIA_DDRA
     LDA #$F0
     STA VIA_DDRB
 
     LDA VIA_IORA
-    AND #%10000000
+    AND #%11000000
     BEQ ButtonReleased
     JMP ButtonPressed
 ButtonReleased:
