@@ -9,14 +9,3 @@ Start:
     STA VIA_IORA
 Hlt:
     JMP Hlt
-    
-InitMemory:
-    LDX #$00
-    RTS
-StoreInMemory:
-    STA RAM_START, X
-    INX
-    RTS
-RetrieveMemory:
-    LDA RAM_START, X
-    RTS
