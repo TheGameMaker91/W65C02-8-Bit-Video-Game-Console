@@ -11,8 +11,6 @@ ZP_END          = $FF
 ; Code Segment & Reset Vector
 ;==================================
 .segment "BIOS_CODE"
-.import Boot
-
 Reset_Vector:
     SEI                 ; Disable interrupts
     CLD                 ; Clear decimal mode
@@ -25,16 +23,13 @@ ClearZP:
     STA $00, X
     INX
     BNE ClearZP
-
-    JMP Boot
-
-;LoadBootloader:
-;    LDA #$00
-;    STA BootLdr
-;    LDA #$F0
-;    STA BootLdr+1
+LoadBootloader:
+    LDA #$00
+    STA BootLdr
+    LDA #$F0
+    STA BootLdr+1
     
-;    JMP (BootLdr)
+    JMP (BootLdr)
     
 ;==================================
 ; NMI and IRQ Vector Intialization

@@ -1,14 +1,13 @@
 .segment "BOOTLDR"
 .include "HAL.INC"
 
-.global Boot
-Boot:
+Start:
     LDA #$FF
     STA VIA_DDRA
 
     CLC
-    LDA #$7F
-    ADC #$7F
+    LDA #$55
+    ADC #$55
     STA VIA_IORA
 Hlt:
     JMP Hlt
