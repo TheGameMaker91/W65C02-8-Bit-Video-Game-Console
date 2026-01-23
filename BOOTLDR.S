@@ -3,7 +3,9 @@
 
 Start:
     LDA #%11001100
+    TAX
     ASL
+    TXA
     PHA
 
     LDA #%11111111
