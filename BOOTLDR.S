@@ -1,28 +1,14 @@
 .segment "BOOTLDR"
 .include "HAL.INC"
 
-Pattern:    .byte $AA
+Start:
+    LDA #%11001100
+    PHA
 
-Bootcode:
-    LDA #$3F
+    LDA #%11111111
     STA VIA_DDRA
-    LDA #$F0
-    STA VIA_DDRB
 
-    LDA VIA_IORA
-    AND #%11000000
-    BEQ ButtonReleased
-    JMP ButtonPressed
-ButtonReleased:
-    LDA Pattern
-    ASL
-    STA Pattern
-    STA VIA_IORB
-    JMP Bootcode
-ButtonPressed:
-    LDA #$AA
-    STA Pattern
-    STA VIA_IORB
-    JMP Bootcode
+    PLA
+    STA VIA_IORA
 Hlt:
     JMP Hlt
