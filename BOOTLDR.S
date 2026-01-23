@@ -27,5 +27,5 @@ StoreInMemory:
     INX
     RTS
 RetrieveMemory:
-    STA RAM_START, X
+    LDA RAM_START, X
     RTS
