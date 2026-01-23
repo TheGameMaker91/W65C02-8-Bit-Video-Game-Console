@@ -5,16 +5,21 @@ ButtonState: .res 1
 .include "HAL.INC"
 
 Start:
-    CLC
-    BCC Test
-Hlt:
-    JMP Hlt
-Test:
     LDA #%11111111
     STA VIA_DDRA
 
+    CLC
+    BCC Test1
+    JMP Test2
+Hlt:
+    JMP Hlt
+Test1:
     LDA #%11000011
     STA VIA_IORA
 
     JMP Hlt
-    
+Test2:
+    LDA #%11011011
+    STA VIA_IORA
+
+    JMP Hlt
