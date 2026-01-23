@@ -6,7 +6,9 @@ Boot:
     LDA #$FF
     STA VIA_DDRA
 
-    LDA #$FF
+    CLC
+    LDA #$4C
+    ADC #$4C
     STA VIA_IORA
 Hlt:
     JMP Hlt
