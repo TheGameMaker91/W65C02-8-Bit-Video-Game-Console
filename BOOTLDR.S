@@ -3,6 +3,7 @@
 
 Start:
     LDA #%11001100
+    ASL
     PHA
 
     LDA #%11111111
