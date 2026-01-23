@@ -2,7 +2,8 @@
 .include "HAL.INC"
 
 Start:
-    LDX #$00
+    JSR InitRAM
+    
     LDA #$FF
     STA $0200, X
     INX
@@ -18,3 +19,7 @@ Start:
     STA VIA_IORA
 Hlt:
     JMP Hlt
+
+InitRAM:
+    LDX #$00
+    RTS
