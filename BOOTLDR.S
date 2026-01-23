@@ -17,7 +17,9 @@ Start:
     LDX #$01
     JSR RetrieveMemory
     STA VIA_IORA
-
+Hlt:
+    JMP Hlt
+    
 InitMemory:
     LDX #$00
     RTS
