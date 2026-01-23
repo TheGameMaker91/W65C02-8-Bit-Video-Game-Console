@@ -1,6 +1,8 @@
 .segment "BOOTLDR"
 .include "HAL.INC"
 
+
+
 Start:
     JSR InitMemory
 
@@ -24,9 +26,9 @@ InitMemory:
     LDX #$00
     RTS
 StoreInMemory:
-    STA $0200, X
+    STA RAM_START, X
     INX
     RTS
 RetrieveMemory:
-    LDA $0200, X
+    LDA RAM_START, X
     RTS
