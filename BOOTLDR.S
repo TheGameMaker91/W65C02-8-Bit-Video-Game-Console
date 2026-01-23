@@ -5,12 +5,10 @@ Start:
     LDX #$00
 
     LDA #$FF
-    STA $0200, X
-    INX
+    STA $0200
 
     LDA #$AA
-    STA $0200, X
-    INX
+    STA $0201
 
     LDX #$00
     JSR RetrieveMemory
