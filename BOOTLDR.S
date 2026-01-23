@@ -1,16 +1,16 @@
 .segment "BOOTLDR"
 .include "HAL.INC"
 
-
-
 Start:
-    JSR InitMemory
+    LDX #$00
 
     LDA #$FF
-    JSR StoreInMemory
+    STA RAM_START, X
+    INX
 
     LDA #$AA
-    JSR StoreInMemory
+    STA RAM_START, X
+    INX
 
     LDX #$00
     JSR RetrieveMemory
