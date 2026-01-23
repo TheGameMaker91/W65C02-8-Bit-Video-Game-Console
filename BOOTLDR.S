@@ -8,7 +8,7 @@ Start:
     LDA #%11111111
     STA VIA_DDRA
 
-    LDA #%01010101
+    LDA #%00100000
     BIT #$20
     BEQ NoMatch
     JMP Match
