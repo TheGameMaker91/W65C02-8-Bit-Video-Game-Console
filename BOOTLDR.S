@@ -2,12 +2,13 @@
 .include "HAL.INC"
 
 Start:
+    LDA #$01
+    AND #$0F
+    TAX
     LDA #$FF
-    STA VIA_DDRA
+    STA VIA_DDRB
 
-    CLC
-    LDA #$55
-    ADC #$55
-    STA VIA_IORA
+    TXA
+    STA VIA_IORB
 Hlt:
     JMP Hlt
