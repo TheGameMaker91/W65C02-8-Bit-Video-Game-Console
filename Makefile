@@ -1,4 +1,4 @@
-AS	= ca65
+AS	= ca65 --cpu 65C02
 CC	= cc65
 LD	= ld65
 
