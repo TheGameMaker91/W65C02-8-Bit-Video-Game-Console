@@ -1,12 +1,9 @@
-.segment "ZP"
-ButtonState: .res 1
-
 .segment "BOOTLDR"
 .include "HAL.INC"
 
 Start:
     JSR InitMemory
-    
+
     LDA #$FF
     JSR StoreInMemory
 
@@ -25,9 +22,9 @@ InitMemory:
     LDX #$00
     RTS
 StoreInMemory:
-    STA RAM_START, X
+    STA $0200, X
     INX
     RTS
 RetrieveMemory:
-    LDA RAM_START, X
+    LDA $0200, X
     RTS
