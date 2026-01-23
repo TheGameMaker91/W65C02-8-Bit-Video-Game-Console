@@ -5,18 +5,18 @@ ButtonState: .res 1
 .include "HAL.INC"
 
 Start:
-    JSR InitMemory
     LDA #$FF
-    JSR StoreInMemory
+    STA $0200
+
     LDA #$AA
-    JSR StoreInMemory
+    STA $0201
 
     LDX #$00
-    JSR RetrieveMemory
+    LDA RAM_START, X
     STA VIA_DDRA
 
     LDX #$01
-    JSR RetrieveMemory
+    LDA RAM_START, X
     STA VIA_IORA
 
 InitMemory:
