@@ -5,11 +5,11 @@ Start:
     LDX #$00
 
     LDA #$FF
-    STA RAM_START, X
+    STA $0200, X
     INX
 
     LDA #$AA
-    STA RAM_START, X
+    STA $0200, X
     INX
 
     LDX #$00
