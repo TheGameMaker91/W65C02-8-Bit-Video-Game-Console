@@ -1,6 +1,9 @@
 .ifndef __HAL_INC__
 .define __HAL_INC__
 
+; RAM locations:
+RAM_START       = $0200
+
 ; Cartridge Slot Variables:
 CART_ADDR_START = $4000
 

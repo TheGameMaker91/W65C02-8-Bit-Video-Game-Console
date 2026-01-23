@@ -5,22 +5,27 @@ ButtonState: .res 1
 .include "HAL.INC"
 
 Start:
-    LDA #%11111111
+    JSR InitMemory
+    LDA #$FF
+    JSR StoreInMemory
+    LDA #$AA
+    JSR StoreInMemory
+
+    LDX #$00
+    JSR RetrieveMemory
     STA VIA_DDRA
 
-    LDA #%00100000
-    BIT #$20
-    BEQ NoMatch
-    JMP Match
-Hlt:
-    JMP Hlt
-Match:
-    LDA #%11000011
+    LDX #$01
+    JSR RetrieveMemory
     STA VIA_IORA
 
-    JMP Hlt
-NoMatch:
-    LDA #%11011011
-    STA VIA_IORA
-
-    JMP Hlt
+InitMemory:
+    LDX #$00
+    RTS
+StoreInMemory:
+    STA RAM_START, X
+    INX
+    RTS
+RetrieveMemory:
+    STA RAM_START, X
+    RTS
