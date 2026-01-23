@@ -7,8 +7,8 @@ Boot:
     STA VIA_DDRA
 
     CLC
-    LDA #$4C
-    ADC #$4C
+    LDA #$7F
+    ADC #$7F
     STA VIA_IORA
 Hlt:
     JMP Hlt
