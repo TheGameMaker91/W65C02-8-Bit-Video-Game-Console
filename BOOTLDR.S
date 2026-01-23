@@ -9,7 +9,7 @@ Start:
     STA VIA_DDRA
 
     SEC
-    BCC Test1
+    BCS Test1
     JMP Test2
 Hlt:
     JMP Hlt
