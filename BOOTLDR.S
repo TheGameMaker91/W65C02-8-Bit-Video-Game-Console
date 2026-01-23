@@ -8,7 +8,7 @@ Start:
     LDA #%11111111
     STA VIA_DDRA
 
-    SEC
+    CLC
     BCS Test1
     JMP Test2
 Hlt:
