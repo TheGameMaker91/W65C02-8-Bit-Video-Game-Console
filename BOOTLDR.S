@@ -6,10 +6,10 @@ ButtonState: .res 1
 
 Start:
     LDA #$FF
-    STA $0200
+    JSR StoreInMemory
 
     LDA #$AA
-    STA $0201
+    JSR StoreInMemory
 
     LDX #$00
     JSR RetrieveMemory
