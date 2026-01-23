@@ -5,6 +5,8 @@ ButtonState: .res 1
 .include "HAL.INC"
 
 Start:
+    JSR InitMemory
+    
     LDA #$FF
     JSR StoreInMemory
 
