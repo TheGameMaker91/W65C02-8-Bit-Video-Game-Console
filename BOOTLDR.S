@@ -1,29 +1,14 @@
 .segment "BOOTLDR"
 .include "HAL.INC"
 
-Start:
-    JSR InitRAM
-    LDA #$FF
-    JSR StoreInMemory
-    LDA #$AA
-    JSR StoreInMemory
-    LDX #$00
-    JSR RetrieveMemory
+; Begin official execution of the bootloader code:
+Bootldr:
+    TXA
+    LDX #$FF
     STA VIA_DDRA
-    LDX #$01
-    JSR RetrieveMemory
+
+    TAX
     STA VIA_IORA
-    RTS
-
-InitRAM:
-    LDX #$00
-    RTS
-
-StoreInMemory:
-    STA $0200, X
-    INX
-    RTS
-
-RetrieveMemory:
-    LDA $0200, X
-    RTS
+Hlt:
+    JMP Hlt
+    
