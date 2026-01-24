@@ -3,23 +3,27 @@
 
 Start:
     JSR InitRAM
-    
     LDA #$FF
-    STA $0200, X
-    INX
-
+    JSR StoreInMemory
     LDA #$AA
-    STA $0200, X
-    INX
-
-    LDA $0200
+    JSR StoreInMemory
+    LDX #$00
+    JSR RetrieveMemory
     STA VIA_DDRA
-
-    LDA $0201
+    LDX #$01
+    JSR RetrieveMemory
     STA VIA_IORA
-Hlt:
-    JMP Hlt
+    RTS
 
 InitRAM:
     LDX #$00
+    RTS
+
+StoreInMemory:
+    STA $0200, X
+    INX
+    RTS
+
+RetrieveMemory:
+    LDA $0200, X
     RTS
