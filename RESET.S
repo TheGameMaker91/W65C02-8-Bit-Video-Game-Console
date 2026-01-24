@@ -29,7 +29,7 @@ LoadBootloader:
     LDA #$F0
     STA BootLdr+1
     
-    LDX #$4F
+    LDX #$1F
     JMP (BootLdr)
     
 ;==================================
