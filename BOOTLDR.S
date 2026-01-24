@@ -3,11 +3,11 @@
 
 ; Begin official execution of the bootloader code:
 Bootldr:
-    TYA
-    LDY #$FF
+    TXA
+    LDX #$FF
     STA VIA_DDRA
 
-    TAY
+    TAX
     STA VIA_IORA
 Hlt:
     JMP Hlt

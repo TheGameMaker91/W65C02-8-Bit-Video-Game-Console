@@ -23,15 +23,16 @@ ClearZP:
     STA $00, X
     INX
     BNE ClearZP
+    
+    LDX #$7A            ; #%01111010 - The known state of the X register on startup. Used for glue logic.
+    LDY #$FF            ; #%11111111 - The known state of the Y register on startup. Used for glue logic.
 LoadBootloader:
     LDA #$00
     STA BootLdr
     LDA #$F0
     STA BootLdr+1
     
-    LDX #$1F
-    LDY #$AF
-    JMP (BootLdr)
+    JMP (BootLdr)       ; Begin bootloader execution at this location.
     
 ;==================================
 ; NMI and IRQ Vector Intialization
