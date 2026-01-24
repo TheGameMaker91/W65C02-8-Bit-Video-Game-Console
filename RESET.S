@@ -30,6 +30,7 @@ LoadBootloader:
     STA BootLdr+1
     
     LDX #$1F
+    LDY #$AF
     JMP (BootLdr)
     
 ;==================================
