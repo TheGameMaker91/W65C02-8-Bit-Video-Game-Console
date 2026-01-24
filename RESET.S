@@ -24,16 +24,16 @@ ClearZP:
     INX
     BNE ClearZP
     
-    LDX #$7A            ; #%01111010 - The known state of the X register on startup. Used for glue logic.
-    LDY #$FF            ; #%11111111 - The known state of the Y register on startup. Used for glue logic.
+    LDX #$FF            ; #%11111111 - The known state of the Y register on startup. Used for glue logic.
+    LDY #$7A            ; #%01111010 - The known state of the X register on startup. Used for glue logic.
 LoadBootloader:
-    TXA
-    STA BootLdr
-    TYA
-    STA BootLdr+1
+    TYA                 ; Transfer Y into A
+    STA BootLdr         ; Store #$7A into the lower byte
+    TXA                 ; Transfer X into A
+    STA BootLdr+1       ; Store #$FF into the higher byte
     
-    JMP (BootLdr)       ; Begin bootloader execution at this location.
-    
+    JMP (BootLdr)       ; Begin bootloader execution at $FF7A.
+
 ;==================================
 ; NMI and IRQ Vector Intialization
 ;==================================
@@ -41,6 +41,12 @@ NMI_Vector:
     RTI
 IRQ_Vector:
     RTI
+
+.segment "BIOS_DATA"
+; Here, we shall initialize all constants and error, warnng, and info messages
+InfoStartup:    .byte $01, "[INFO]: Startup successful!", 0, 0
+InfoCartFound:  .byte $01, "[INFO]: Cartridge loaded successfully at $4000.", 0, 0
+ErrRAM:         .byte $03, "[ERR]: Could not initialize RAM.", 0, 0
 
 ;==================================
 ; Vectors
