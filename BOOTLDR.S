@@ -2,12 +2,23 @@
 .include "HAL.INC"
 
 ; Begin official execution of the bootloader code:
-Bootldr:
-    LDA #$FF
+Start:
+    LDA #%00000001
     STA VIA_DDRA
+Loop:
+    LDA VIA_IORA
+    EOR #%00000001
+    STA VIA_IORA
 
-    LDA #$AA
-    STY VIA_IORA
-Hlt:
-    JMP Hlt
+    LDX #$FF
+
+OuterDelay:
+    LDY #$FF
+InnerDelay:
+    DEY
+    BNE InnerDelay
+    DEX
+    BNE OuterDelay
+
+    JMP Loop
     
