@@ -3,24 +3,21 @@
 
 ; Begin official execution of the bootloader code:
 Start:
-    LDA #%00000001
+    LDA #$FF
     STA VIA_DDRA
 
-    LDA #%01111010
-    STA VIA_DDRA
-Loop:
-    LDA VIA_IORA
-    EOR #%00000001
+    LDA #$7A
+    STA VIA_IORA
+BlinkerLoop:
+    EOR #%01000000
     STA VIA_IORA
 
     LDX #$FF
-OuterDelay:
+DelayOuter:
     LDY #$FF
-InnerDelay:
+DelayInner:
     DEY
-    BNE InnerDelay
+    BNE DelayInner
     DEX
-    BNE OuterDelay
-
-    JMP Loop
-    
+    BNE DelayOuter
+    JMP BlinkerLoop
