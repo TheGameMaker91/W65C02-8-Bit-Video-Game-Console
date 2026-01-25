@@ -6,7 +6,7 @@ Start:
     LDA #$FF
     STA VIA_DDRA
 
-    LDA $1400
+    LDA $1401
     STA VIA_PORTA
 End:
     JMP End
