@@ -5,13 +5,15 @@
 Start:
     LDA #%00000001
     STA VIA_DDRA
+
+    LDA #%01111010
+    STA VIA_DDRA
 Loop:
     LDA VIA_IORA
     EOR #%00000001
     STA VIA_IORA
 
     LDX #$FF
-
 OuterDelay:
     LDY #$FF
 InnerDelay:
