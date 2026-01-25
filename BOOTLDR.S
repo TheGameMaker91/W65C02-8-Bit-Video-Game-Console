@@ -6,18 +6,7 @@ Start:
     LDA #$FF
     STA VIA_DDRA
 
-    LDA #$7A
+    LDA $1400
     STA VIA_PORTA
-BlinkerLoop:
-    EOR #%01000000
-    STA VIA_PORTA
-
-    LDX #$FF
-DelayOuter:
-    LDY #$FF
-DelayInner:
-    DEY
-    BNE DelayInner
-    DEX
-    BNE DelayOuter
-    JMP BlinkerLoop
+End:
+    JMP End

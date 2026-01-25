@@ -1,16 +1,9 @@
 ; RESET.S65: Contains pre-POST reset vector.
-;==============================
-; Zero Page Segment
-;==============================
-.segment "ZP"
-BootLdr:        .res 2
-ZP_START        = $00
-ZP_END          = $FF
-
 ;==================================
 ; Code Segment & Reset Vector
 ;==================================
 .segment "BIOS_CODE"
+.import LoadBootloader
 Reset_Vector:
     SEI                 ; Disable interrupts
     CLD                 ; Clear decimal mode
@@ -24,16 +17,28 @@ ClearZP:
     INX
     BNE ClearZP
 
+; == BEGIN VRAM CLEAR ==;
+    LDA #$AA
+    STA $00
+
+    LDA #$14
+    STA $01
+
+    LDX #$0C
+    LDY #$00
+VRAM_CLEAR_LOOP:
+    STA ($00), Y
+    INY
+    BNE VRAM_CLEAR_LOOP
+
+    INC $01
+    DEX
+    BNE VRAM_CLEAR_LOOP
+
     LDX #$FF            ; #%11111111 - The known state of the Y register on startup. Used for glue logic.
     LDY #$7A            ; #%01111010 - The known state of the X register on startup. Used for glue logic.
-LoadBootloader:
-    TYA                 ; Transfer Y into A
-    STA BootLdr         ; Store #$7A into the lower byte
-    TXA                 ; Transfer X into A
-    STA BootLdr+1       ; Store #$FF into the higher byte
-    
-    JMP (BootLdr)       ; Begin bootloader execution at $FF7A.
 
+    JMP LoadBootloader  ; Wherever this happens to be in memory.
 ;==================================
 ; NMI and IRQ Vector Intialization
 ;==================================
