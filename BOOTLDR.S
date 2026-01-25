@@ -11,8 +11,6 @@ Start:
 BlinkerLoop:
     EOR #%01000000
     STA VIA_PORTA
-    EOR #%00010000
-    STA VIA_PORTA
 
     LDX #$FF
 DelayOuter:
