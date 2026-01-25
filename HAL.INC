@@ -8,8 +8,8 @@ RAM_START       = $0200
 CART_ADDR_START = $4000
 
 ; VIA Chip Registers:
-VIA_IORB        = $C000
-VIA_IORA        = $C001
+VIA_PORTB       = $C000
+VIA_PORTA       = $C001
 VIA_DDRB        = $C002
 VIA_DDRA        = $C003
 VIA_T1CL        = $C004
