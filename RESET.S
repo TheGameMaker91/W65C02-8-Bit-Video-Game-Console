@@ -24,7 +24,7 @@ ClearZP:
     BNE ClearZP
 
 ; == BEGIN VRAM CLEAR ==;
-    LDA #$00
+    LDA #$AA
     STA ptr
     LDA #$14
     STA ptr+1
