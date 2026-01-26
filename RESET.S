@@ -28,7 +28,7 @@ ClearZP:
 ClearPage:
     LDY #$00
 ClearByte:
-    STA $0000, Y
+    STA $1400, Y
     INY
     BNE ClearByte
     INX
