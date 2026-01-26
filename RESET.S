@@ -39,23 +39,6 @@ ClearRAM:
     CMP #$20
     BNE ClearRAM
 
-    ; Begin clear VRAM:
-    LDA #$00
-    STA ptr
-    LDA #$14
-    STA ptr+1
-
-    LDY #$00
-    ; Clear the RAM where the VDG will read from:
-ClearVRAM:
-    STA (ptr), Y
-    INY
-    BNE ClearVRAM
-    INC ptr+1
-    LDA ptr+1
-    CMP #$20
-    BNE ClearVRAM
-
     ; Tranafer control to the firmware:
     .import firmware_init
     JMP firmware_init
