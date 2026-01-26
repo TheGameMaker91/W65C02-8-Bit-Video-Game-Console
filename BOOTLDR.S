@@ -12,18 +12,27 @@ Start:
     LDA #%01000000
     STA VIA_ACR
 
-    LDA #<$FFFF
+    LDA #$00
     STA VIA_T1CL
-    LDA #>$FFFF
+    LDA #$FF
     STA VIA_T1CH
+
+    LDX #$40
+    
 Blink:
+WaitT1:
     LDA VIA_IFR
     AND #%01000000
-    BEQ Blink
+    BEQ WaitT1
+
+    LDA VIA_T1CL
+
+    DEX
+    BNE Blink
 
     LDA VIA_PORTA
     EOR #%00000001
     STA VIA_PORTA
 
-    LDA VIA_T1CL
+    LDX #$40
     JMP Blink
