@@ -3,9 +3,6 @@
 
 ; Begin official execution of the bootloader code:
 Start:
-    LDA #$AA
-    STA $1401
-
     LDA #$FF
     STA VIA_DDRA
 
