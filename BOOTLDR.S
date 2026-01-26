@@ -3,7 +3,7 @@
 
 ; Begin official execution of the bootloader code:
 Start:
-    LDA #%00000001
+    LDA #%00000011
     STA VIA_DDRA
 
     LDA #$00
@@ -18,7 +18,7 @@ Start:
     STA VIA_T1CH
 
     LDX #$40
-    
+
 Blink:
 WaitT1:
     LDA VIA_IFR
@@ -31,7 +31,7 @@ WaitT1:
     BNE Blink
 
     LDA VIA_PORTA
-    EOR #%00000001
+    EOR #%00000011
     STA VIA_PORTA
 
     LDX #$40
