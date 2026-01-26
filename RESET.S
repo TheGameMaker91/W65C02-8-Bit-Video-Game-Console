@@ -23,15 +23,17 @@ ClearZP:
     INX
     BNE ClearZP
 
-; == BEGIN VRAM CLEAR ==;
+    ; Begin clear RAM:
     LDA #$00
     STA ptr
     LDA #$14
     STA ptr+1
 
     LDY #$00
+
+    ; Clear the RAM where the VDG will read from:
 ClearVRAM:
-    LDA #$55
+    LDA #$00            ; The value stored in the RAM it's cleared to.
     STA (ptr), Y
     INY
     BNE ClearVRAM
@@ -42,6 +44,10 @@ ClearVRAM:
 
     LDX #$FF            ; #%11111111 - The known state of the Y register on startup. Used for glue logic.
     LDY #$7A            ; #%01111010 - The known state of the X register on startup. Used for glue logic.
+
+    ; Tranafer control to the firmware:
+    .import firmware_init
+    JSR firmware_init
 
     ; Load the bootloader. It is here that all of the console firmware will be written. Then the bootloader comes at the end.
 LoadBootloader:
