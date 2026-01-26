@@ -6,7 +6,7 @@ Start:
     LDA #%00000011
     STA VIA_DDRA
 
-    LDA #$00
+    LDA #$01
     STA VIA_PORTA
 
     LDA #%01000000
