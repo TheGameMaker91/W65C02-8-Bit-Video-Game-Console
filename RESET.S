@@ -31,7 +31,7 @@ ClearZP:
 
     LDY #$00
 ClearVRAM:
-    LDA #$AA
+    LDA #$55
     STA (ptr), Y
     INY
     BNE ClearVRAM
