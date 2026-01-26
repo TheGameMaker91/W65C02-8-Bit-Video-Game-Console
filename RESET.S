@@ -4,6 +4,7 @@
 ;==============================
 .segment "ZP"
 BootLdr:        .res 2
+ptr             = $00
 
 ;==================================
 ; Code Segment & Reset Vector
@@ -24,16 +25,20 @@ ClearZP:
 
 ; == BEGIN VRAM CLEAR ==;
     LDA #$00
-    LDX #$14
-ClearPage:
+    STA ptr
+    LDA #$14
+    STA ptr+1
+
     LDY #$00
-ClearByte:
-    STA $1400, Y
+ClearLoop:
+    LDA #$00
+    STA (ptr), Y
     INY
-    BNE ClearByte
-    INX
-    CPX #$20
-    BNE ClearPage
+    BNE ClearLoop
+    INC ptr+1
+    LDA ptr+1
+    CMP #$20
+    BNE ClearLoop
 
     LDX #$FF            ; #%11111111 - The known state of the Y register on startup. Used for glue logic.
     LDY #$7A            ; #%01111010 - The known state of the X register on startup. Used for glue logic.
