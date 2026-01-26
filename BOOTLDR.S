@@ -6,7 +6,7 @@ Start:
     LDA #$FF
     STA VIA_DDRA
 
-    LDA #$AA
+    LDA #%11001010
     STA VIA_PORTA
 End:
     JMP End

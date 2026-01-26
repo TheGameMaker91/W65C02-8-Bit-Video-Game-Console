@@ -15,24 +15,39 @@ Reset_Vector:
     LDX #$FF
     TXS                 ; Initialize stack
 
+    NOP
     LDX #$00
-    LDA #$00
 ClearZP:
     STA $00, X
     INX
     BNE ClearZP
 
-    ; Begin clear RAM:
+    ; Begin clear system RAM:
+    LDA #$00
+    STA ptr
+    LDA #$02
+    STA ptr+1
+
+    LDY #$00
+    ; Clear the RAM where the VDG will read from:
+ClearRAM:
+    STA (ptr), Y
+    INY
+    BNE ClearRAM
+    INC ptr+1
+    LDA ptr+1
+    CMP #$20
+    BNE ClearRAM
+
+    ; Begin clear VRAM:
     LDA #$00
     STA ptr
     LDA #$14
     STA ptr+1
 
     LDY #$00
-
     ; Clear the RAM where the VDG will read from:
 ClearVRAM:
-    LDA #$00            ; The value stored in the RAM it's cleared to.
     STA (ptr), Y
     INY
     BNE ClearVRAM
@@ -40,9 +55,6 @@ ClearVRAM:
     LDA ptr+1
     CMP #$20
     BNE ClearVRAM
-
-    LDX #$FF            ; #%11111111 - The known state of the Y register on startup. Used for glue logic.
-    LDY #$7A            ; #%01111010 - The known state of the X register on startup. Used for glue logic.
 
     ; Tranafer control to the firmware:
     .import firmware_init
