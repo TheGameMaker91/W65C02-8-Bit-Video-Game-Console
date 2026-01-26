@@ -24,14 +24,14 @@ ClearZP:
     BNE ClearZP
 
 ; == BEGIN VRAM CLEAR ==;
-    LDA #$AA
+    LDA #$00
     STA ptr
     LDA #$14
     STA ptr+1
 
     LDY #$00
 ClearLoop:
-    LDA #$00
+    LDA #$AA
     STA (ptr), Y
     INY
     BNE ClearLoop
