@@ -23,22 +23,17 @@ ClearZP:
     BNE ClearZP
 
 ; == BEGIN VRAM CLEAR ==;
-    LDA #$AA
-    STA $00
-
-    LDA #$14
-    STA $01
-
-    LDX #$0C
+    LDA #$00
+    LDX #$14
+ClearPage:
     LDY #$00
-VRAM_CLEAR_LOOP:
-    STA ($00), Y
+ClearByte:
+    STA $0000, X
     INY
-    BNE VRAM_CLEAR_LOOP
-
-    INC $01
-    DEX
-    BNE VRAM_CLEAR_LOOP
+    BNE ClearByte
+    INX
+    CPX #$20
+    BNE ClearPage
 
     LDX #$FF            ; #%11111111 - The known state of the Y register on startup. Used for glue logic.
     LDY #$7A            ; #%01111010 - The known state of the X register on startup. Used for glue logic.
