@@ -30,15 +30,15 @@ ClearZP:
     STA ptr+1
 
     LDY #$00
-ClearLoop:
+ClearVRAM:
     LDA #$AA
     STA (ptr), Y
     INY
-    BNE ClearLoop
+    BNE ClearVRAM
     INC ptr+1
     LDA ptr+1
     CMP #$20
-    BNE ClearLoop
+    BNE ClearVRAM
 
     LDX #$FF            ; #%11111111 - The known state of the Y register on startup. Used for glue logic.
     LDY #$7A            ; #%01111010 - The known state of the X register on startup. Used for glue logic.
