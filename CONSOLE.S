@@ -45,49 +45,6 @@ TEST:
 ; Initialize the necessary console states:
 .global firmware_init
 firmware_init:
-    LDA #$FF            ; THIS WILL NOT CHANGE UNLESS IT HAS TO!
-    STA VIA_DDRA        ; Store $FC in A and write to the VIA!
-
-    ; Now we'll do the rest of the firmware below here:
-    LDA #$FF            ; Load $FF into A
-    STA $0800           ; Store $FF (0b11111111) in $0800 (0b0000100000000000)  
-    LDA #$00            ; Load $00 into A
-    STA $0800           ; Store $00 (0b00000000) in $0800 (0b0000100000000000)
-    LDA #$FF            ; Now we load $FF into A and
-    STA $0801           ; store it in $0801, which will set the last bit (0b0000100000000001) allowing us to use it for EN
-
-    LDA $4000
-    CMP #$08
-    BNE MainLoop
-    JMP FailCart
-
-MainLoop:
-    LDX #00
-@NextByte:
-    LDA TEST, X
-    STA VIA_PORTA
-
-    LDY #8              ; This is effectively the multiplier. Larger values will make the delay longer.
-
-@WaitMulti:
-    LDA #$FF
-    STA VIA_T1CL
-    STA VIA_T1CH
-
-@WaitTimer:
-    LDA VIA_IFR
-    AND #%01000000
-    BEQ @WaitTimer
-
-    LDA VIA_T1CL
-
-    DEY
-    BNE @WaitMulti
-
-    INX
-    CPX #80
-    BNE @NextByte
-    JMP MainLoop
 
 ; This will be stored in the X and Y registers for the bootloader:
 SetupRegisters:
@@ -102,8 +59,3 @@ LoadBootloader:
     STA BootLdr+1       ; Store #$FF into the higher byte
 
     JMP (BootLdr)       ; Begin bootloader execution at $FF7A.
-
-; If this works, we should see the LEDs all light up instead of do the test pattern:
-FailCart:
-    LDA #$FF
-    STA VIA_PORTA
