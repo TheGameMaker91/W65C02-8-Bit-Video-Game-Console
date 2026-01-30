@@ -30,16 +30,16 @@ BootLdr:        .res 2
 .global firmware_init
 firmware_init:
     LDA #$6C
-    STA $0800
+    STA $0600
     LDA #$CC
-    STA $0801
+    STA $0601
 @Loop:
-    LDA $0800
+    LDA $0600
     STA VIA_PORTA
 
-    LDA $0801
+    LDA $0601
     STA VIA_PORTA
-    
+
     JMP @Loop
     
 ; This will be stored in the X and Y registers for the bootloader:
