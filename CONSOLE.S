@@ -33,7 +33,7 @@ TEST:
 ; Initialize the necessary console states:
 .global firmware_init
 firmware_init:
-    LDA #$FC            ; THIS WILL NOT CHANGE UNLESS IT HAS TO!
+    LDA #$FF            ; THIS WILL NOT CHANGE UNLESS IT HAS TO!
     STA VIA_DDRA        ; Store $FC in A and write to the VIA!
 
     ; Now we'll do the rest of the firmware below here:
