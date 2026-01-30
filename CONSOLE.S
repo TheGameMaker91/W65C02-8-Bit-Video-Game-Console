@@ -18,7 +18,7 @@
 
 ; Initialize zero page variables here:
 .segment "ZP"
-BootLdr:        .res 2
+BootLdr = $00
 
 ; We're in the firmware section now:
 .segment "FIRMWARE"
@@ -29,11 +29,7 @@ BootLdr:        .res 2
 ; Initialize the necessary console states:
 .global firmware_init
 firmware_init:
-    LDA #$FF
-    STA VIA_DDRA
-
-    LDA #$AA
-    PHA
+    
 
 ; This will be stored in the X and Y registers for the bootloader:
 SetupRegisters:
