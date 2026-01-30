@@ -50,7 +50,7 @@ MainLoop:
     LDA TEST, X
     STA VIA_PORTA
 
-    LDY #2
+    LDY #4              ; This is effectively the multiplier. Larger values will make the delay longer.
 
 @WaitMulti:
     LDA #$FF
