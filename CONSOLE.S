@@ -44,12 +44,29 @@ firmware_init:
     LDA #$FF            ; Now we load $FF into A and
     STA $0801           ; store it in $0801, which will set the last bit (0b0000100000000001) allowing us to use it for EN
 
-    LDX #15
-@loop:
+MainLoop:
+    LDX #00
+@NextByte:
     LDA TEST, X
     STA VIA_PORTA
-    DEX
-    BPL @loop
+
+    LDA #$FF
+    STA VIA_T1CL
+    LDA #$FF
+    STA VIA_T1CH
+
+@WaitTimer:
+    LDA VIA_IFR
+    AND #%01000000
+    BEQ @WaitTimer
+
+    LDA VIA_T1CL
+
+    INX
+    CPX #16
+    BNE @NextByte
+
+    JMP MainLoop
 
 ; This will be stored in the X and Y registers for the bootloader:
 SetupRegisters:
