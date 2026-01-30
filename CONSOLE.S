@@ -18,7 +18,7 @@
 
 ; Initialize zero page variables here:
 .segment "ZP"
-BootLdr = $00
+BootLdr = $02
 
 ; We're in the firmware section now:
 .segment "FIRMWARE"
