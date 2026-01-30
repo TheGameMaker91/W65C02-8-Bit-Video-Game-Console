@@ -33,8 +33,8 @@ firmware_init:
     STA VIA_DDRA
 
     LDA #$AA
-    STA $0303
-    
+    PHA
+
 ; This will be stored in the X and Y registers for the bootloader:
 SetupRegisters:
     LDX #$FF            ; #%11111111 - The known state of the Y register on startup. Used for glue logic.
