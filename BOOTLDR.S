@@ -3,7 +3,7 @@
 
 ; Begin official execution of the bootloader code:
 Start:
-    LDA #$FF
+    LDA $0303
     STA VIA_PORTA 
 Hlt:
     JMP Hlt
