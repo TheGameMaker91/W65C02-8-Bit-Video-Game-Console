@@ -1,7 +1,15 @@
-; RESET.S65: Contains pre-POST reset vector.
-;==============================
-; Zero Page Segment
-;==============================
+; This file is the literal entry point of the system. This is where the code execution will begin
+; after the POR circuit does its thing. The system is powered on, the 12V adapter is brought down 
+; to 5V through the L7805, then it goes to a 555 timer that is setup in Monostable mode with a
+; debounce function. This way, when the system is powered on, the CPU reset line is held low for a
+; minimum of 2 clock cycles (see the W65C02SXP datasheet for more info). From there, the CPU begins 
+; execution at the Reset_Vector ($FFFC-$FFFD). That reset vector tells the CPU where to begin system
+; execution (see CONSOLE.S). In our case, the code is set to jump to $FF7A, which gives us exactly 
+; 128 bytes because we don't overwrite the vectors. So we have from $FF7A-$FFFA. We clear zero page,
+; clear the RAM, and jump to the firmware once we're all setup. The BIOS_DATA segment just holds 
+; strings and constants.
+
+; Initialize zero page variables here:
 .segment "ZP"
 ptr             = $00
 
@@ -9,6 +17,8 @@ ptr             = $00
 ; Code Segment & Reset Vector
 ;==================================
 .segment "BIOS_CODE"
+.global ClearZP
+.global ClearRAM
 Reset_Vector:
     SEI                 ; Disable interrupts
     CLD                 ; Clear decimal mode

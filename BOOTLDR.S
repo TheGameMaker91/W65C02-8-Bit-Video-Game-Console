@@ -17,8 +17,7 @@ Start:
     LDA #$FF
     STA VIA_T1CH
 
-    LDX #$40
-
+    LDX #$20
 Blink:
 WaitT1:
     LDA VIA_IFR
@@ -34,5 +33,5 @@ WaitT1:
     EOR #%00000011
     STA VIA_PORTA
 
-    LDX #$40
+    LDX #$20
     JMP Blink
