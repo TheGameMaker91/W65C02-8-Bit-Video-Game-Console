@@ -27,10 +27,20 @@ BootLdr = $02
 .include "HAL.INC"
 
 TEST: 
-    .byte   $FF, $33, $AA, $55, $00, $00, $FF, $FF
-    .byte   $4C, $32, $23, $23, $AA, $AA, $55, $55
-    .byte   $00, $FF, $00, $FF, $CC, $33, $C3, $3C
+    .byte   $FF, $33, $AA, $55, $55, $AA, $33, $FF
+    .byte   $55, $55, $FF, $FF, $AA, $AA, $55, $55
+
+    .byte   $00, $FF, $00, $FF, $CC, $CC, $C3, $3C
     .byte   $01, $02, $04, $08, $10, $20, $40, $80
+
+    .byte   $01, $02, $04, $08, $10, $20, $40, $80
+    .byte   $80, $40, $20, $10, $08, $04, $02, $01
+
+    .byte   $01, $02, $04, $08, $10, $20, $40, $80
+    .byte   $80, $40, $20, $10, $08, $04, $02, $01
+
+    .byte   $01, $02, $04, $08, $10, $20, $40, $80
+    .byte   $80, $40, $20, $10, $08, $04, $02, $01
 
 ; Initialize the necessary console states:
 .global firmware_init
@@ -70,7 +80,7 @@ MainLoop:
     BNE @WaitMulti
 
     INX
-    CPX #32
+    CPX #80
     BNE @NextByte
     JMP MainLoop
 
