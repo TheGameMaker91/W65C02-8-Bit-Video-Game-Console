@@ -58,8 +58,8 @@ firmware_init:
 
     LDA $4000
     CMP #$08
-    BNE FailCart
-    JMP MainLoop
+    BNE MainLoop
+    JMP FailCart
 
 MainLoop:
     LDX #00
