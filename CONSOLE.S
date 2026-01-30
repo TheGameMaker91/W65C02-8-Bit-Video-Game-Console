@@ -50,9 +50,11 @@ MainLoop:
     LDA TEST, X
     STA VIA_PORTA
 
+    LDY #2
+
+@WaitMulti:
     LDA #$FF
     STA VIA_T1CL
-    LDA #$FF
     STA VIA_T1CH
 
 @WaitTimer:
@@ -62,10 +64,12 @@ MainLoop:
 
     LDA VIA_T1CL
 
+    DEY
+    BNE @WaitMulti
+
     INX
     CPX #16
     BNE @NextByte
-
     JMP MainLoop
 
 ; This will be stored in the X and Y registers for the bootloader:
