@@ -26,11 +26,30 @@ BootLdr = $02
 ; Includes go here:
 .include "HAL.INC"
 
+TEST: 
+    .byte   $FF, $33, $AA, $55, $00, $00, $FF, $FF
+    .byte   $4C, $32, $23, $23, $AA, $AA, $55, $55
+
 ; Initialize the necessary console states:
 .global firmware_init
 firmware_init:
     LDA #$FC            ; THIS WILL NOT CHANGE UNLESS IT HAS TO!
     STA VIA_DDRA        ; Store $FC in A and write to the VIA!
+
+    ; Now we'll do the rest of the firmware below here:
+    LDA #$FF            ; Load $FF into A
+    STA $0800           ; Store $FF (0b11111111) in $0800 (0b0000100000000000)  
+    LDA #$00            ; Load $00 into A
+    STA $0800           ; Store $00 (0b00000000) in $0800 (0b0000100000000000)
+    LDA #$FF            ; Now we load $FF into A and
+    STA $0801           ; store it in $0801, which will set the last bit (0b0000100000000001) allowing us to use it for EN
+
+    LDX #15
+@loop:
+    LDA TEST, X
+    STA VIA_PORTA
+    DEX
+    BPL @loop
 
 ; This will be stored in the X and Y registers for the bootloader:
 SetupRegisters:
