@@ -29,6 +29,8 @@ BootLdr = $02
 TEST: 
     .byte   $FF, $33, $AA, $55, $00, $00, $FF, $FF
     .byte   $4C, $32, $23, $23, $AA, $AA, $55, $55
+    .byte   $00, $FF, $00, $FF, $CC, $33, $C3, $3C
+    .byte   $01, $02, $04, $08, $10, $20, $40, $80
 
 ; Initialize the necessary console states:
 .global firmware_init
@@ -68,7 +70,7 @@ MainLoop:
     BNE @WaitMulti
 
     INX
-    CPX #16
+    CPX #32
     BNE @NextByte
     JMP MainLoop
 
