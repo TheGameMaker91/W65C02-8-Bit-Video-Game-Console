@@ -33,7 +33,14 @@ firmware_init:
     STA $0800
     LDA #$CC
     STA $0801
-    JMP firmware_init
+@Loop:
+    LDA $0800
+    STA VIA_PORTA
+
+    LDA $0801
+    STA VIA_PORTA
+    
+    JMP @Loop
     
 ; This will be stored in the X and Y registers for the bootloader:
 SetupRegisters:
