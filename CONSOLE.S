@@ -29,7 +29,8 @@ BootLdr = $02
 ; Initialize the necessary console states:
 .global firmware_init
 firmware_init:
-    
+    LDA #$FC
+    STA VIA_DDRA
 
 ; This will be stored in the X and Y registers for the bootloader:
 SetupRegisters:
