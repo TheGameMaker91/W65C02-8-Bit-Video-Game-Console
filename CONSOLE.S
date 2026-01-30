@@ -29,6 +29,8 @@ BootLdr:        .res 2
 ; Initialize the necessary console states:
 .global firmware_init
 firmware_init:
+    LDA #$FF
+    PHA
     
 ; This will be stored in the X and Y registers for the bootloader:
 SetupRegisters:
