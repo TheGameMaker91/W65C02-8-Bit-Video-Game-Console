@@ -34,5 +34,6 @@ ReadLoop:
     BNE ReadLoop
 
     LDA BUTTONS
+    EOR #$FF
     STA VIA_PORTA
     JMP ReadSwitches
