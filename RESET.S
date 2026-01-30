@@ -63,11 +63,15 @@ IRQ_Vector:
 
 .segment "BIOS_DATA"
 ; Here, we shall initialize all constants and error, warnng, and info messages
-InfoStartup:        .byte $01, "[INFO]: Startup successful $", 0, 0
-InfoCartFound:      .byte $01, "[INFO]: Cartridge loaded successfully at $4000 $", 0, 0
-WarnNoController:   .byte $02, "[WARN]: No controller in port 1 $", 0, 0
-ErrRAM:             .byte $03, "[ERR]: Could not initialize RAM $", 0, 0
-ErrVIA:             .byte $03, "[ERR]: Could not intialize VIA $", 0, 0
+InfoStartup:        .byte $01, "[INFO]: Startup successful!", 0, 0
+InfoCartFound:      .byte $01, "[INFO]: Cartridge loaded successfully at $4000.", 0, 0
+WarnNoController1:  .byte $02, "[WARN]: No controller in port 1...", 0, 0
+WarnNoController2:  .byte $02, "[WARN]: No controller in port 2...", 0, 0
+ErrBoot:            .byte $03, "[ERR]: Could not load bootloader...", 0, 0
+ErrCart:            .byte $03, "[ERR]: Invalid or corrupted cartridge inserted...", 0, 0
+ErrRAM:             .byte $03, "[ERR]: Could not initialize RAM...", 0, 0
+ErrVIA:             .byte $03, "[ERR]: Could not intialize VIA...", 0, 0
+ErrExec:            .byte $03, "[ERR]: Execution failed for an unknown reason...", 0, 0
 
 ;==================================
 ; Vectors
