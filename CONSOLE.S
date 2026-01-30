@@ -56,6 +56,11 @@ firmware_init:
     LDA #$FF            ; Now we load $FF into A and
     STA $0801           ; store it in $0801, which will set the last bit (0b0000100000000001) allowing us to use it for EN
 
+    LDA $4000
+    CMP #$08
+    BNE FailCart
+    JMP MainLoop
+
 MainLoop:
     LDX #00
 @NextByte:
@@ -97,3 +102,8 @@ LoadBootloader:
     STA BootLdr+1       ; Store #$FF into the higher byte
 
     JMP (BootLdr)       ; Begin bootloader execution at $FF7A.
+
+; If this works, we should see the LEDs all light up instead of do the test pattern:
+FailCart:
+    LDA #$FF
+    STA VIA_PORTA
