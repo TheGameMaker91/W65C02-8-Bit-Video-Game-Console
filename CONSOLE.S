@@ -30,7 +30,7 @@ BootLdr:        .res 2
 .global firmware_init
 firmware_init:
     LDA #$FF
-    PHA
+    STA $0200
     
 ; This will be stored in the X and Y registers for the bootloader:
 SetupRegisters:
