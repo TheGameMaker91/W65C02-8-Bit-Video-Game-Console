@@ -6,9 +6,6 @@ BUTTONS = $00FF
 
 Start:
     LDA #$05
-    CLC
-    ROL A
-    ROL A
-    STA VIA_PORTB
+    STA VIA_PORTA
 Stop:
     JMP Stop

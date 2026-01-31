@@ -45,9 +45,12 @@ TEST:
 ; Initialize the necessary console states:
 .global firmware_init
 firmware_init:
+    LDA #$03
+    STA VIA_DDRB
     LDA #$FF
     STA VIA_DDRA
-    STA VIA_DDRB
+    LDA #$00
+    STA VIA_PORTA
 
 ; This will be stored in the X and Y registers for the bootloader:
 SetupRegisters:
