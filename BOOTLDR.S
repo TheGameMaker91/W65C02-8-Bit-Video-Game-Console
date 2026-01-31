@@ -23,7 +23,7 @@ BIT_LOW:
     CLC
 SHIFT:
     PLA
-    ROL A
+    ROR A
 
     PHA
     LDA #%00000001
