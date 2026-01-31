@@ -8,7 +8,7 @@ Start:
     LDA #$05
     CLC
     ROL A
+    ROL A
     STA VIA_PORTB
 Stop:
     JMP Stop
-    
