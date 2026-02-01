@@ -50,8 +50,8 @@ ClearRAM:
     BNE ClearRAM
 
     ; Tranafer control to the firmware:
-    .import firmware_init
-    JMP firmware_init
+    .import FirmwareInit
+    JMP FirmwareInit
 
 ;==================================
 ; NMI and IRQ Vector Intialization

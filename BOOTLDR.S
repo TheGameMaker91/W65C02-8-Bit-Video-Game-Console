@@ -12,16 +12,16 @@ Start:
 
     LDX #$08
     LDA #$00
-READ_LOOP:
+ReadLoop:
     PHA
     LDA VIA_PORTB
     AND #%00000100
-    BEQ BIT_LOW
+    BEQ BitLow
     SEC
-    BCS SHIFT
-BIT_LOW:
+    BCS Shift
+BitLow:
     CLC
-SHIFT:
+Shift:
     PLA
     ROR A
 
@@ -33,10 +33,8 @@ SHIFT:
     PLA
 
     DEX
-    BNE READ_LOOP
+    BNE ReadLoop
 
     EOR #$FF
     STA VIA_PORTA
     JMP Start
-Stop:
-    JMP Stop

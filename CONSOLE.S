@@ -26,36 +26,29 @@ BootLdr = $02
 ; Includes go here:
 .include "HAL.INC"
 
-TEST: 
-    .byte   $FF, $33, $AA, $55, $55, $AA, $33, $FF
-    .byte   $55, $55, $FF, $FF, $AA, $AA, $55, $55
-
-    .byte   $00, $FF, $00, $FF, $CC, $CC, $C3, $3C
-    .byte   $01, $02, $04, $08, $10, $20, $40, $80
-
-    .byte   $01, $02, $04, $08, $10, $20, $40, $80
-    .byte   $80, $40, $20, $10, $08, $04, $02, $01
-
-    .byte   $01, $02, $04, $08, $10, $20, $40, $80
-    .byte   $80, $40, $20, $10, $08, $04, $02, $01
-
-    .byte   $01, $02, $04, $08, $10, $20, $40, $80
-    .byte   $80, $40, $20, $10, $08, $04, $02, $01
-
 ; Initialize the necessary console states:
-.global firmware_init
-firmware_init:
-    LDA #$03
-    STA VIA_DDRB
+.global FirmwareInit
+FirmwareInit:
+    JSR SetupVIA
+    JSR SetupRegisters
+    JMP LoadBootloader
+
+; Initialize the default state of the VIA regardless of its use:
+SetupVIA:
     LDA #$FF
     STA VIA_DDRA
+    STA VIA_DDRB
+
     LDA #$00
     STA VIA_PORTA
+    STA VIA_PORTB
+    RTS
 
 ; This will be stored in the X and Y registers for the bootloader:
 SetupRegisters:
     LDX #$FF            ; #%11111111 - The known state of the Y register on startup. Used for glue logic.
     LDY #$7A            ; #%01111010 - The known state of the X register on startup. Used for glue logic.
+    RTS
 
 ; Load the bootloader. It is here that all of the console firmware will be written. Then the bootloader comes at the end.
 LoadBootloader:
