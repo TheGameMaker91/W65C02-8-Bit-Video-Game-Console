@@ -29,10 +29,19 @@ BootLdr = $02
 ; Initialize the necessary console states:
 .global FirmwareInit
 FirmwareInit:
-    JSR SetupVIA
-    JSR SetupFirmware
-    JSR SetupRegisters
-    JMP LoadBootloader
+    LDA #$FF
+    STA VIA_DDRA
+    STA VIA_DDRB
+
+    LDA #$81
+    STA VIA_PORTA
+    STA VIA_PORTB
+StopHere:
+    JMP StopHere
+    ;JSR SetupVIA
+    ;JSR SetupFirmware
+    ;JSR SetupRegisters
+    ;JMP LoadBootloader
 
 ; Initialize the default state of the VIA regardless of its use:
 SetupVIA:
