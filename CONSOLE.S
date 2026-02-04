@@ -30,6 +30,7 @@ BootLdr = $02
 .global FirmwareInit
 FirmwareInit:
     JSR SetupVIA
+    JSR SetupFirmware
     JSR SetupRegisters
     JMP LoadBootloader
 
@@ -43,6 +44,18 @@ SetupVIA:
     STA VIA_PORTA
     STA VIA_PORTB
     RTS
+
+; Intialize the firmare and initial setup:
+SetupFirmware:
+    LDA #$C0
+    STA $0800           ; Store $C0 just outside of the 2KB boundaries where glue logic must be initiailized.
+    LDA #$CC
+    STA $0801
+    LDX $A0
+    STX $0802
+    CLC
+    ROR
+    SEC
 
 ; This will be stored in the X and Y registers for the bootloader:
 SetupRegisters:
