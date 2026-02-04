@@ -29,13 +29,7 @@ BootLdr = $02
 ; Initialize the necessary console states:
 .global FirmwareInit
 FirmwareInit:
-    LDA #$FF
-    STA VIA_DDRA
-    STA VIA_DDRB
-
-    LDA #$81
-    STA VIA_PORTA
-    STA VIA_PORTB
+    JSR SetupVIA
 StopHere:
     JMP StopHere
     ;JSR SetupVIA
