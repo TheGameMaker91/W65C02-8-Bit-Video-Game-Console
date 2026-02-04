@@ -29,6 +29,8 @@ BootLdr = $02
 ; Initialize the necessary console states:
 .global FirmwareInit
 FirmwareInit:
+    LDA #$FF
+    STA VIA_DDRA
     LDA #$AA
     STA VIA_PORTA
 StopHere:
