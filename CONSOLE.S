@@ -40,7 +40,7 @@ SetupVIA:
     STA VIA_DDRA
     STA VIA_DDRB
 
-    LDA #$00
+    LDA #%10000001
     STA VIA_PORTA
     STA VIA_PORTB
     RTS
